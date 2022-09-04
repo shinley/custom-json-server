@@ -6,6 +6,15 @@ exports.intercepter = (server) => {
         if (req.method === 'POST') { // add your authorization logic here
             console.log("改成put")
             req.method = 'PUT'
+            if (JSON.stringify(req.body) == '{}') {
+                res.status(400).json({
+                    "code": 400,
+                    "data": "",
+                    "message": "post请求参数为空",
+                    "success": false
+                })
+                return
+            }
         } 
     
         // 如果是GET请求, 并且有分页参数。 在header中做标记， 并现响应方法中slice
