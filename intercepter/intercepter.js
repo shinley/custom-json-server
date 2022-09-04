@@ -4,7 +4,7 @@ exports.intercepter = (server) => {
         // 在此处根据路径中是否包含 update 和 del 来修改请求方式
         console.log(pth)
         if (req.method === 'POST') { // add your authorization logic here
-        req.method = 'PATCH'
+            req.method = 'PUT'
         } 
     
         // 如果是GET请求, 并且有分页参数。 在header中做标记， 并现响应方法中slice

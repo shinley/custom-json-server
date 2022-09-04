@@ -1,14 +1,10 @@
 const path = require('path')
 const jsonServer = require('json-server')
-
 const { render } = require('./render/render.js')
 const { intercepter } = require('./intercepter/intercepter')
-
 const server = jsonServer.create()
 const router = jsonServer.router(path.join(__dirname, 'db.json'))
-
 const middlewares = jsonServer.defaults()
-
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
@@ -26,6 +22,7 @@ server.use(jsonServer.rewriter({
   '/user/chapter': '/chapter',
   '/user-manage/list': '/staff',
   "/user-manage/list\\?page=:page&size=:size": "/staff",
+  '/user-manage/all-list': '/staff',
   '/user-manage/detail/:id': '/staff/:id'
 }))
 
