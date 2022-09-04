@@ -27,38 +27,40 @@ function render(router) {
                 "message": "successs"
                 }) 
         }else {
-        // 此处判断是否分页
-        const splitPage = res.getHeaders()["x-split-page"]
-        const currPage = parseInt(res.getHeaders()["x-page"])
-        const pageSize = parseInt(res.getHeaders()["x-size"])
-        // 如果分页
-        if (splitPage) {
-            dataArray = res.locals.data;
-            let total  = dataArray.length;
-    
-            let  totalPage = parseInt(total % pageSize == 0 ? total/pageSize : total/pageSize + 1)
-    
-            let firstIndex = (currPage-1) * pageSize
-            let lastIndex = currPage * pageSize;
-    
-            console.log('dataArray', dataArray)
-            dataSlice = dataArray.slice(firstIndex, lastIndex)
-            let data = {
-                "currPage": currPage,
-                "totalPage": totalPage,
-                "pageSize": pageSize,
-                "totalSize": total,
-                "list": dataSlice
-            }
-    
-            res.json({
-            "code": 200,
-            "success": true,
-            "data": data,
-            "message": "success"
-            })
+            // 此处判断是否分页
+            const splitPage = res.getHeaders()["x-split-page"]
+            const currPage = parseInt(res.getHeaders()["x-page"])
+            const pageSize = parseInt(res.getHeaders()["x-size"])
+     
+            // 如果分页
+            if (splitPage) {
+                dataArray = res.locals.data;
+                let total  = dataArray.length;
+        
+                let  totalPage = parseInt(total % pageSize == 0 ? total/pageSize : total/pageSize + 1)
+        
+                let firstIndex = (currPage-1) * pageSize
+                let lastIndex = currPage * pageSize;
+        
+                console.log('dataArray', dataArray)
+                dataSlice = dataArray.slice(firstIndex, lastIndex)
+                let data = {
+                    "currPage": currPage,
+                    "totalPage": totalPage,
+                    "pageSize": pageSize,
+                    "totalSize": total,
+                    "list": dataSlice
+                }
+        
+                res.json({
+                "code": 200,
+                "success": true,
+                "data": data,
+                "message": "success"
+                })
         } else {
             // 不分页
+            console.log("不分页")
             res.json({
             "code": 200,
             "success": true,
