@@ -18,6 +18,7 @@ intercepter(server)
  * 配置路由，每个都要配置
  */
 server.use(jsonServer.rewriter({
+  '/sys/profile': '/profile',
   '/user/feature': '/feature',
   '/user/chapter': '/chapter',
   '/user-manage/list': '/staff',
