@@ -10,7 +10,7 @@ let response_temp = {
 function postLogin(req, res) {
     // 登录一般用post, 此处单独处理
     if (req.url.indexOf('/login') != -1) {      
-        response_temp.data =  "8fa22e88-f6ab-4a4b-930a-a5e62c4c74e8"
+        response_temp.data =  {token: "8fa22e88-f6ab-4a4b-930a-a5e62c4c74e8"}
         res.status(200).json(response_temp)
         return true
     }
