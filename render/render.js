@@ -1,15 +1,20 @@
 
+let response_temp = {
+                    "code": 200,
+                    "success": true,
+                    "data": "",
+                    "message": "successs"
+                    }
+
+
 function postLogin(req, res) {
     // 登录一般用post, 此处单独处理
     if (req.url.indexOf('/login') != -1) {      
-        res.status(200).json({
-        "code": 200,
-        "data":{
-            "token": "8fa22e88-f6ab-4a4b-930a-a5e62c4c74e8"
-        },
-        "message": "successs"
-        })
+        response_temp.data =  "8fa22e88-f6ab-4a4b-930a-a5e62c4c74e8"
+        res.status(200).json(response_temp)
+        return true
     }
+    return false
 }
 
 
@@ -17,15 +22,12 @@ function render(router) {
     router.render = (req, res) => {
         if (req.method === 'POST' || req.method === 'PATCH' || req.method === 'PUT'||req.method === 'POST'||req.method === 'DELETE') {
             // 单独处理login
-            postLogin(req, res)
+            let isLogin = postLogin(req, res)
+            if (!isLogin) {
+                // 其它不返回数据
+                res.jsonp(response_temp) 
+            }
             
-            // 其它不返回数据
-            res.jsonp({
-                "code": 200,
-                "success": true,
-                "data": "",
-                "message": "successs"
-                }) 
         }else {
             // 此处判断是否分页
             const splitPage = res.getHeaders()["x-split-page"]
@@ -51,22 +53,13 @@ function render(router) {
                     "totalSize": total,
                     "list": dataSlice
                 }
-        
-                res.json({
-                "code": 200,
-                "success": true,
-                "data": data,
-                "message": "success"
-                })
+                response_temp.data = data
+                res.json(response_temp)
         } else {
             // 不分页
             console.log("不分页")
-            res.json({
-            "code": 200,
-            "success": true,
-            "data": res.locals.data,
-            "message": "success"
-            })
+            response_temp.data = res.locals.data
+            res.json(res.locals.data)
         }
         }
     }

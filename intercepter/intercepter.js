@@ -6,7 +6,7 @@ exports.intercepter = (server) => {
         if (req.method === 'POST') { // add your authorization logic here
             console.log("改成put")
             req.method = 'PUT'
-            if (JSON.stringify(req.body) == '{}') {
+            if (JSON.stringify(req.body) == '{}' && req.url.indexOf('/login') == -1) {
                 res.status(400).json({
                     "code": 400,
                     "data": "",
