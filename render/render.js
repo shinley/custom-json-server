@@ -1,17 +1,11 @@
-
-let response_temp = {
-                    "code": 200,
-                    "success": true,
-                    "data": "",
-                    "message": "successs"
-                    }
+const { RESP_JSON } = require('../constant')
 
 
 function postLogin(req, res) {
     // 登录一般用post, 此处单独处理
     if (req.url.indexOf('/login') != -1) {      
-        response_temp.data =  {token: "8fa22e88-f6ab-4a4b-930a-a5e62c4c74e8"}
-        res.status(200).json(response_temp)
+        RESP_JSON.data =  {token: "8fa22e88-f6ab-4a4b-930a-a5e62c4c74e8"}
+        res.status(200).json(RESP_JSON)
         return true
     }
     return false
@@ -25,7 +19,7 @@ function render(router) {
             let isLogin = postLogin(req, res)
             if (!isLogin) {
                 // 其它不返回数据
-                res.jsonp(response_temp) 
+                res.jsonp(RESP_JSON) 
             }
             
         }else {
@@ -47,19 +41,19 @@ function render(router) {
                 console.log('dataArray', dataArray)
                 dataSlice = dataArray.slice(firstIndex, lastIndex)
                 let data = {
-                    "currPage": currPage,
-                    "totalPage": totalPage,
-                    "pageSize": pageSize,
-                    "totalSize": total,
-                    "list": dataSlice
+                    currPage: currPage,
+                    totalPage: totalPage,
+                    pageSize: pageSize,
+                    totalSize: total,
+                    list: dataSlice
                 }
-                response_temp.data = data
-                res.json(response_temp)
+                RESP_JSON.data = data
+                res.json(RESP_JSON)
         } else {
             // 不分页
             console.log("不分页")
-            response_temp.data = res.locals.data
-            res.json(res.locals.data)
+            RESP_JSON.data = res.locals.data
+            res.json(RESP_JSON)
         }
         }
     }

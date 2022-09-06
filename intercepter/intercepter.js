@@ -1,3 +1,5 @@
+const { RESP_JSON } = require('../constant')
+
 exports.intercepter = (server) => {
     server.use((req, res, next) => {
         const pth = req.path
@@ -7,12 +9,8 @@ exports.intercepter = (server) => {
             console.log("改成put")
             req.method = 'PUT'
             if (JSON.stringify(req.body) == '{}' && req.url.indexOf('/login') == -1) {
-                res.status(400).json({
-                    "code": 400,
-                    "data": "",
-                    "message": "post请求参数为空",
-                    "success": false
-                })
+                RESP_JSON.message =  "post请求参数为空"
+                res.status(400).json(RESP_JSON)
                 return
             }
         } 
