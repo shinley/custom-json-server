@@ -6,8 +6,15 @@ exports.intercepter = (server) => {
         // 在此处根据路径中是否包含 update 和 del 来修改请求方式
         console.log(pth)
         if (req.method === 'POST') { // add your authorization logic here
-            console.log("改成put")
-            req.method = 'PUT'
+            // 如果路径中包含 update 改成put
+            if (req.url.indexOf('update') != -1) {
+                req.method = 'PUT'
+            }
+            // 如果路径中包含del, 表时是删除, 改成DELETE
+            if (req.url.indexOf('del') != -1) {
+                req.method = 'DELETE'
+            }
+
             if (JSON.stringify(req.body) == '{}' && req.url.indexOf('/login') == -1) {
                 RESP_JSON.message =  "post请求参数为空"
                 res.status(400).json(RESP_JSON)

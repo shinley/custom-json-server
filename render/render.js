@@ -51,7 +51,7 @@ function render(router) {
                 res.json(RESP_JSON)
         } else {
             // 不分页
-            console.log("不分页")
+            console.log("不分页", res.locals.data)
             RESP_JSON.data = res.locals.data
             res.json(RESP_JSON)
         }

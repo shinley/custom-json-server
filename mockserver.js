@@ -24,7 +24,10 @@ server.use(jsonServer.rewriter({
   '/user-manage/list': '/staff',
   "/user-manage/list\\?page=:page&size=:size": "/staff",
   '/user-manage/all-list': '/staff',
-  '/user-manage/detail/:id': '/staff/:id'
+  '/user-manage/detail/:id': '/staff/:id',
+  '/sys/student\\?page=:page&size=:size': '/student',
+  '/sys/student': '/student',
+  '/sys/student\\?id=:id': '/student/:id'
 }))
 
 server.use(router)
